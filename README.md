@@ -1,6 +1,8 @@
 # DUSTLINE · 尘埃战线
 
 [![Built with ANS Skill](https://img.shields.io/badge/Built%20with-ANS%20Skill-1f6feb)](https://github.com/wangzhongren/ans-skill)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Docs: CC BY 4.0](https://img.shields.io/badge/Docs-CC%20BY%204.0-lightgrey.svg)](LICENSE-DOCS.md)
 [![Electron](https://img.shields.io/badge/Electron-44-47848F)](https://www.electronjs.org/)
 [![Three.js](https://img.shields.io/badge/Three.js-r186-000000)](https://threejs.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11%20x64-0078D4)](#运行)
@@ -162,9 +164,11 @@ test/           按角色分组的单元/契约测试、集成/E2E 与报告
 
 ## 素材与授权
 
-- 世界美化素材均为 **CC0**：Poly Haven HDRI、ambientCG PBR 贴图、Quaternius/Poly Pizza 人类模型与步枪模型。
-- 具体来源、作者、授权和文件路径见 [resource/ATTRIBUTIONS.md](resource/ATTRIBUTIONS.md) 与 [resource/asset-manifest.json](resource/asset-manifest.json)。
-- 游戏代码：当前为 `UNLICENSED`（未声明开源许可）。如需以 MIT / Apache-2.0 发布，请补充 `LICENSE` 并同步 `package.json`。
+- **源代码**：MIT，见 [LICENSE](LICENSE)。
+- **原创文档、角色卡、流程图与展示截图**：CC BY 4.0，见 [LICENSE-DOCS.md](LICENSE-DOCS.md)。
+- **第三方美术素材**：均为 **CC0**（Poly Haven HDRI、ambientCG PBR 贴图、Quaternius/Poly Pizza 人类与步枪模型）。来源、作者、授权和文件路径见 [resource/ATTRIBUTIONS.md](resource/ATTRIBUTIONS.md) 与 [resource/asset-manifest.json](resource/asset-manifest.json)。
+- 第三方软件依赖与素材的完整说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+- ANS Skill 本身不在本仓库中，遵循其自身仓库的授权。
 
 ## 已知限制
 

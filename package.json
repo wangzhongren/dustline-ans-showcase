@@ -6,7 +6,7 @@
   "type": "module",
   "main": "electron/main.js",
   "author": "DUSTLINE Project",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

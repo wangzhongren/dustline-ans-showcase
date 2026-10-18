@@ -138,3 +138,11 @@ npm run dist
 - 游戏设计与批准记录：[docs/governance/2026-10-17_bootstrap-and-game-design.md](../docs/governance/2026-10-17_bootstrap-and-game-design.md)
 - 角色卡目录：[角色卡/](../角色卡/)
 - CC0 素材与授权：[resource/ATTRIBUTIONS.md](../resource/ATTRIBUTIONS.md)
+
+## 10. 许可
+
+- **源代码**：[MIT](../LICENSE)。
+- **原创文档、角色卡、流程图与展示截图**：[CC BY 4.0](../LICENSE-DOCS.md)。
+- **第三方美术素材**：CC0，来源见 [resource/ATTRIBUTIONS.md](../resource/ATTRIBUTIONS.md)。
+- **第三方软件与素材汇总**：[THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md)。
+- ANS Skill 本身不在本仓库中，遵循其自身仓库的授权。
