@@ -1,0 +1,12 @@
+node_modules/
+dist/
+release/
+.ans/runtime/
+*.log
+.DS_Store
+Thumbs.db
+
+# Local test evidence; curated screenshots are kept in docs/showcase/
+test/*/screenshots*/
+test/*/evidence/
+test/*/fixtures/screenshots*/

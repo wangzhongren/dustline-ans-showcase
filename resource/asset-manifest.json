@@ -1,0 +1,432 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-17",
+  "baseUrl": "resource/",
+  "textures": {
+    "ground": {
+      "color": "textures/ground/Ground054_1K-JPG_Color.jpg",
+      "normal": "textures/ground/Ground054_1K-JPG_NormalGL.jpg",
+      "roughness": "textures/ground/Ground054_1K-JPG_Roughness.jpg",
+      "ao": "textures/ground/Ground054_1K-JPG_AmbientOcclusion.jpg"
+    },
+    "concrete": {
+      "color": "textures/concrete/Concrete034_1K-JPG_Color.jpg",
+      "normal": "textures/concrete/Concrete034_1K-JPG_NormalGL.jpg",
+      "roughness": "textures/concrete/Concrete034_1K-JPG_Roughness.jpg"
+    },
+    "metal": {
+      "color": "textures/metal/Metal032_1K-JPG_Color.jpg",
+      "normal": "textures/metal/Metal032_1K-JPG_NormalGL.jpg",
+      "roughness": "textures/metal/Metal032_1K-JPG_Roughness.jpg",
+      "metalness": "textures/metal/Metal032_1K-JPG_Metalness.jpg"
+    },
+    "wood": {
+      "color": "textures/wood/Wood066_1K-JPG_Color.jpg",
+      "normal": "textures/wood/Wood066_1K-JPG_NormalGL.jpg",
+      "roughness": "textures/wood/Wood066_1K-JPG_Roughness.jpg"
+    },
+    "steel": {
+      "color": "textures/steel/CorrugatedSteel009_1K-JPG_Color.jpg",
+      "normal": "textures/steel/CorrugatedSteel009_1K-JPG_NormalGL.jpg",
+      "roughness": "textures/steel/CorrugatedSteel009_1K-JPG_Roughness.jpg",
+      "metalness": "textures/steel/CorrugatedSteel009_1K-JPG_Metalness.jpg",
+      "ao": "textures/steel/CorrugatedSteel009_1K-JPG_AmbientOcclusion.jpg"
+    },
+    "fabric": {
+      "color": "textures/fabric/Fabric084_1K-JPG_Color.jpg",
+      "normal": "textures/fabric/Fabric084_1K-JPG_NormalGL.jpg",
+      "roughness": "textures/fabric/Fabric084_1K-JPG_Roughness.jpg",
+      "ao": "textures/fabric/Fabric084_1K-JPG_AmbientOcclusion.jpg"
+    }
+  },
+  "hdri": {
+    "sky": "hdri/kloofendal_48d_partly_cloudy_puresky_1k.hdr"
+  },
+  "models": {
+    "rifle": "models/quaternius-rifle.glb",
+    "humans": {
+      "rifleman": [
+        {
+          "id": "adventurer",
+          "file": "resource/models/quaternius-adventurer.glb",
+          "url": "models/quaternius-adventurer.glb",
+          "animations": [
+            "CharacterArmature|Idle_Gun",
+            "CharacterArmature|Walk",
+            "CharacterArmature|Run",
+            "CharacterArmature|Run_Shoot",
+            "CharacterArmature|Gun_Shoot",
+            "CharacterArmature|HitRecieve",
+            "CharacterArmature|Death"
+          ],
+          "scale": 0.985,
+          "forwardAxis": "+Z",
+          "rootMotion": false
+        },
+        {
+          "id": "woman-casual",
+          "file": "resource/models/quaternius-woman-casual.glb",
+          "url": "models/quaternius-woman-casual.glb",
+          "animations": [
+            "CharacterArmature|Idle_Gun",
+            "CharacterArmature|Walk",
+            "CharacterArmature|Run",
+            "CharacterArmature|Run_Shoot",
+            "CharacterArmature|Gun_Shoot",
+            "CharacterArmature|HitRecieve",
+            "CharacterArmature|Death"
+          ],
+          "scale": 0.995,
+          "forwardAxis": "+Z",
+          "rootMotion": false
+        },
+        {
+          "id": "woman-formal",
+          "file": "resource/models/quaternius-woman-formal.glb",
+          "url": "models/quaternius-woman-formal.glb",
+          "animations": [
+            "CharacterArmature|Idle_Gun",
+            "CharacterArmature|Walk",
+            "CharacterArmature|Run",
+            "CharacterArmature|Run_Shoot",
+            "CharacterArmature|Gun_Shoot",
+            "CharacterArmature|HitRecieve",
+            "CharacterArmature|Death"
+          ],
+          "scale": 1,
+          "forwardAxis": "+Z",
+          "rootMotion": false
+        }
+      ],
+      "heavy": [
+        {
+          "id": "adventurer",
+          "file": "resource/models/quaternius-adventurer.glb",
+          "url": "models/quaternius-adventurer.glb",
+          "animations": [
+            "CharacterArmature|Idle_Gun",
+            "CharacterArmature|Walk",
+            "CharacterArmature|Run",
+            "CharacterArmature|Run_Shoot",
+            "CharacterArmature|Gun_Shoot",
+            "CharacterArmature|HitRecieve",
+            "CharacterArmature|Death"
+          ],
+          "scale": 0.985,
+          "forwardAxis": "+Z",
+          "rootMotion": false
+        }
+      ],
+      "breacher": [
+        {
+          "id": "man-base",
+          "file": "resource/models/quaternius-man-base.glb",
+          "url": "models/quaternius-man-base.glb",
+          "animations": [
+            "HumanArmature|Man_Idle",
+            "HumanArmature|Man_Standing",
+            "HumanArmature|Man_Walk",
+            "HumanArmature|Man_Run",
+            "HumanArmature|Man_Punch",
+            "HumanArmature|Man_Death"
+          ],
+          "scale": 0.373,
+          "forwardAxis": "+Z",
+          "rootMotion": false
+        }
+      ]
+    }
+  },
+  "assets": [
+    {
+      "id": "hdri.sky",
+      "file": "resource/hdri/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
+      "url": "hdri/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
+      "kind": "hdri",
+      "source": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
+      "author": "Greg Zaal (Poly Haven; sky edits by Jarod Guest)",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "model.rifle",
+      "file": "resource/models/quaternius-rifle.glb",
+      "url": "models/quaternius-rifle.glb",
+      "kind": "model",
+      "source": "https://static.poly.pizza/da83f4f9-7a4e-4739-9033-79d688aa3b5e.glb",
+      "author": "Quaternius (Poly Pizza)",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "model.human.adventurer",
+      "file": "resource/models/quaternius-adventurer.glb",
+      "url": "models/quaternius-adventurer.glb",
+      "kind": "model",
+      "source": "https://static.poly.pizza/bbe369ee-a686-42c7-adad-14356f5f2f15.glb",
+      "author": "Quaternius (Poly Pizza)",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "model.human.woman-casual",
+      "file": "resource/models/quaternius-woman-casual.glb",
+      "url": "models/quaternius-woman-casual.glb",
+      "kind": "model",
+      "source": "https://static.poly.pizza/ba7a1955-ea51-4cb9-a561-188bdef0a6c7.glb",
+      "author": "Quaternius (Poly Pizza)",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "model.human.woman-formal",
+      "file": "resource/models/quaternius-woman-formal.glb",
+      "url": "models/quaternius-woman-formal.glb",
+      "kind": "model",
+      "source": "https://static.poly.pizza/46d6db5a-3c9f-4238-8cdf-8eb7194498dc.glb",
+      "author": "Quaternius (Poly Pizza)",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "model.human.man-base",
+      "file": "resource/models/quaternius-man-base.glb",
+      "url": "models/quaternius-man-base.glb",
+      "kind": "model",
+      "source": "https://static.poly.pizza/3746be88-6799-4817-929b-6bc067c47caa.glb",
+      "author": "Quaternius (Poly Pizza)",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.ground.color",
+      "file": "resource/textures/ground/Ground054_1K-JPG_Color.jpg",
+      "url": "textures/ground/Ground054_1K-JPG_Color.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Ground054_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.ground.normal",
+      "file": "resource/textures/ground/Ground054_1K-JPG_NormalGL.jpg",
+      "url": "textures/ground/Ground054_1K-JPG_NormalGL.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Ground054_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.ground.roughness",
+      "file": "resource/textures/ground/Ground054_1K-JPG_Roughness.jpg",
+      "url": "textures/ground/Ground054_1K-JPG_Roughness.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Ground054_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.ground.ao",
+      "file": "resource/textures/ground/Ground054_1K-JPG_AmbientOcclusion.jpg",
+      "url": "textures/ground/Ground054_1K-JPG_AmbientOcclusion.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Ground054_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.concrete.color",
+      "file": "resource/textures/concrete/Concrete034_1K-JPG_Color.jpg",
+      "url": "textures/concrete/Concrete034_1K-JPG_Color.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Concrete034_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.concrete.normal",
+      "file": "resource/textures/concrete/Concrete034_1K-JPG_NormalGL.jpg",
+      "url": "textures/concrete/Concrete034_1K-JPG_NormalGL.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Concrete034_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.concrete.roughness",
+      "file": "resource/textures/concrete/Concrete034_1K-JPG_Roughness.jpg",
+      "url": "textures/concrete/Concrete034_1K-JPG_Roughness.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Concrete034_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.metal.color",
+      "file": "resource/textures/metal/Metal032_1K-JPG_Color.jpg",
+      "url": "textures/metal/Metal032_1K-JPG_Color.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Metal032_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.metal.normal",
+      "file": "resource/textures/metal/Metal032_1K-JPG_NormalGL.jpg",
+      "url": "textures/metal/Metal032_1K-JPG_NormalGL.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Metal032_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.metal.roughness",
+      "file": "resource/textures/metal/Metal032_1K-JPG_Roughness.jpg",
+      "url": "textures/metal/Metal032_1K-JPG_Roughness.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Metal032_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.metal.metalness",
+      "file": "resource/textures/metal/Metal032_1K-JPG_Metalness.jpg",
+      "url": "textures/metal/Metal032_1K-JPG_Metalness.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Metal032_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.wood.color",
+      "file": "resource/textures/wood/Wood066_1K-JPG_Color.jpg",
+      "url": "textures/wood/Wood066_1K-JPG_Color.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Wood066_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.wood.normal",
+      "file": "resource/textures/wood/Wood066_1K-JPG_NormalGL.jpg",
+      "url": "textures/wood/Wood066_1K-JPG_NormalGL.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Wood066_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.wood.roughness",
+      "file": "resource/textures/wood/Wood066_1K-JPG_Roughness.jpg",
+      "url": "textures/wood/Wood066_1K-JPG_Roughness.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Wood066_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.steel.color",
+      "file": "resource/textures/steel/CorrugatedSteel009_1K-JPG_Color.jpg",
+      "url": "textures/steel/CorrugatedSteel009_1K-JPG_Color.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=CorrugatedSteel009_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.steel.normal",
+      "file": "resource/textures/steel/CorrugatedSteel009_1K-JPG_NormalGL.jpg",
+      "url": "textures/steel/CorrugatedSteel009_1K-JPG_NormalGL.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=CorrugatedSteel009_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.steel.roughness",
+      "file": "resource/textures/steel/CorrugatedSteel009_1K-JPG_Roughness.jpg",
+      "url": "textures/steel/CorrugatedSteel009_1K-JPG_Roughness.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=CorrugatedSteel009_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.steel.metalness",
+      "file": "resource/textures/steel/CorrugatedSteel009_1K-JPG_Metalness.jpg",
+      "url": "textures/steel/CorrugatedSteel009_1K-JPG_Metalness.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=CorrugatedSteel009_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.steel.ao",
+      "file": "resource/textures/steel/CorrugatedSteel009_1K-JPG_AmbientOcclusion.jpg",
+      "url": "textures/steel/CorrugatedSteel009_1K-JPG_AmbientOcclusion.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=CorrugatedSteel009_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.fabric.color",
+      "file": "resource/textures/fabric/Fabric084_1K-JPG_Color.jpg",
+      "url": "textures/fabric/Fabric084_1K-JPG_Color.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Fabric084_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.fabric.normal",
+      "file": "resource/textures/fabric/Fabric084_1K-JPG_NormalGL.jpg",
+      "url": "textures/fabric/Fabric084_1K-JPG_NormalGL.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Fabric084_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.fabric.roughness",
+      "file": "resource/textures/fabric/Fabric084_1K-JPG_Roughness.jpg",
+      "url": "textures/fabric/Fabric084_1K-JPG_Roughness.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Fabric084_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    },
+    {
+      "id": "texture.fabric.ao",
+      "file": "resource/textures/fabric/Fabric084_1K-JPG_AmbientOcclusion.jpg",
+      "url": "textures/fabric/Fabric084_1K-JPG_AmbientOcclusion.jpg",
+      "kind": "texture",
+      "source": "https://ambientcg.com/get?file=Fabric084_1K-JPG.zip",
+      "author": "ambientCG",
+      "license": "CC0",
+      "downloadedAt": "2026-10-17"
+    }
+  ]
+}

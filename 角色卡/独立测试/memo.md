@@ -1,0 +1,46 @@
+# 工作线索：独立测试
+
+- 2026-10-17：角色建立（ANS 引导）。
+- 测试入口以真实玩家操作和 Electron 窗口为准；不使用内部类直接构造替代完整流程。
+- 当前环境：Windows 11（10.0.26200）、Node 24.11.1、npm 11.6.2、Electron 44.9.0、playwright-core 1.64.1。
+- 2026-10-17：完成初始独立验证。
+  - 集成：`test/独立测试/integration/game-flow.test.js`，7 pass / 0 fail。
+  - E2E：`test/独立测试/e2e/electron-smoke.test.js`，2 pass / 0 fail；本环境指针锁定可用。
+  - 现有单元/契约：132 pass / 0 fail。
+  - 无参数 `node --test`：154 pass / 0 fail（含重复发现的 HUD 用例与空 loader 文件）。
+  - 构建：`npm run build` 成功；未压缩应用可启动；安装包未安装/卸载。
+  - 2026-10-17 15:51：项目管理在最终视觉/契约修改后重新打包；未压缩应用复验通过，打包内 `index-ClkC91v5.js` 与当前 `dist` 哈希一致；美术角色接受写实军事视觉方向，保留三项非阻断跟进。
+  - 报告：`docs/reports/2026-10-17_report_initial-verification.md`。
+- 2026-10-17：完成 v3 人类士兵升级的独立验证（§10 of 报告）。
+  - 集成：`game-flow.test.js` 更新为 12 个用例，12 pass / 0 fail。
+  - E2E：`electron-smoke.test.js` 更新为 4 个用例，4 pass / 0 fail；新截图在 `fixtures/screenshots-v3/`。
+  - 角色单元/契约：209 pass / 0 fail。
+  - 构建：68 modules，`index-B44tpa5e.js` 1,008.43 kB，SHA-256 `777f09e9…fb35e`；仅有 >500 kB chunk 警告。
+  - 性能采样：暂停画面、1584 × 861、6 个步枪兵；高画质 180.03 fps、低画质 180.12 fps（frameCount/墙钟）；高/低差异受 rAF 节奏限制，不能当 GPU 基准。
+  - `release/` 已由项目管理于 18:33/18:34 重新打包为 v3：未压缩应用内 `index-B44tpa5e.js` 1,008,431 字节，SHA-256 `777f09e9…fb35e`，与当前 `dist` 一致；已用 Playwright 启动复核（默认模式无 O4 钩子；测试模式开始/HUD/人类兵种正常）。安装包安装/卸载仍未验证。
+  - v3 打包截图：`fixtures/screenshots-v3/packaged-menu-v3.png`。
+  - 报告：`docs/reports/2026-10-17_report_initial-verification.md` §10。
+- 2026-10-17：完成 V3-4 ADS 黑镜修复独立复测（报告 §12）。
+  - 真实 Electron、`DUSTLINE_TEST=1`、pointer lock=`game`、右键 ADS；截图与证据在 `fixtures/screenshots-v3-ads-fix/`。
+  - E2E 扩展为 5 个用例，最终 **5 pass / 0 fail / 0 skipped**（31,702.4025 ms）；新增中心采样回归。
+  - ADS 160×160 平均亮度 **130.17/255**，镜片中心 40×40 平均亮度 **113.57/255**，maxR **245**，红点像素 **37**（R>120 且 >1.4G/B），高亮红点质心 (80,101)（画面中心下方 21 px），唯一颜色 814、方差 1647.41；HIP 松开右键后 `aiming === false`。
+  - 战斗结构 65 pass、敌方 38 pass、界面 27 pass、集成 12 pass；`npm run build` 68 modules，`index-0WrKp_Kr.js` 1,009.43 kB，SHA-256 `6b8491f9…971d`，仅 >500 kB 警告。
+  - 修复前证据从战斗服务只读复制为 `ads-before.png`；对照中心 20×20 亮度约 31.65、红点 0。
+  - 19:12/19:13 打包产物复核：`release/win-unpacked/DUSTLINE.exe` 247,184,896 字节（19:12:40）、安装包 132,636,138 字节（19:13:10）；打包内 `index-0WrKp_Kr.js` 1,009,431 字节、SHA-256 `6b8491f9…971d`，与当前 `dist` 一致。用 `executablePath` 启动打包应用复跑 ADS：中心平均亮度 **142.79/255**、镜片中心 40×40 **113.63/255**、maxR **220**、红点像素 **36**、红点质心 (79,103)（中心下方 23 px），HIP `aiming=false`，页面异常 0；截图 `fixtures/screenshots-v3-ads-fix/packaged-*.png`。报告 §13。
+  - 本轮未运行 `pack`/`dist`；打包由项目管理完成，本角色只复验产物。
+- 下一轮需要关注：
+  - ADS 红点质心比屏幕几何中心低约 21 px（1584 × 861，约 2.4%）；黑镜修复断言通过，但红点与准星/几何中心是否必须严格重合需战斗/美术确认。
+  - O4 钩子未暴露相机 FOV，本角色未对 ADS FOV 54° 做数值断言；如有需要请管线/界面补充只读字段后再加断言。
+  - v3 最终安装包的安装/卸载、快捷方式与静默升级验证。
+  - 人工两波游玩与听音（人类士兵动作、枪声、爆头提示）。
+  - 30 个人类士兵 + 高画质的性能、输入延迟与稳定性。
+  - 连续 5 次重开的内存与场景对象数量；动画过渡、脚底贴地/滑步、装具穿模。
+  - 若生产代码、构建配置、共享契约或素材变化，先复跑集成/E2E/构建/打包，再更新报告。
+- 已知测试注意点：
+  - HUD 的 `hud:update` 可能比服务快照晚一帧；E2E 等待 HUD 自身状态，不要只读一次快照就断言 HUD。
+  - 设置会跨 Electron 运行持久化在 localStorage `dustline.settings.v3`；E2E 每次先通过设置面板恢复默认值，避免继承上一轮状态。
+  - 人类步枪兵伤害较高，静止时约 9 秒死亡；E2E 的画面取证与性能采样放在暂停或早期阶段，避免玩家在断言中途死亡。
+  - 环视截图依赖真实指针锁定；指针锁定丢失会触发自动暂停，测试会点击“继续”并重新消耗前两次 mousemove。
+  - Playwright 启动的 Electron 窗口在部分桌面会话中不会自动聚焦，Chromium 会以 `WrongDocumentError` 拒绝 pointer lock；E2E 启动时已显式 `show()/focus()`，ADS 用例仍会确认 `document.pointerLockElement.id === 'game'`，无法锁定时标记 NOT RUN。
+  - ADS 黑镜回归同时断言 160×160 与镜片中心 40×40 的平均亮度；只看 160×160 会被周围明亮场景稀释，不能区分修复前的黑色实心镜体。修复前 40×40 平均亮度约 53/255，修复后约 113/255。
+  - HUD 方向受击红色三角会进入中心裁剪并拉偏“全部高亮红素质心”（19:12 打包首跑已实际遇到）。本轮按项目管理要求未改测试；若后续出现偶发失败，应改为连通域或中心邻域选取红点，而不是放宽亮度/红点断言。

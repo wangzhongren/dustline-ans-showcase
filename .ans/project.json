@@ -1,0 +1,356 @@
+{
+  "schemaVersion": 1,
+  "maxConcurrentWorkers": 2,
+  "designFiles": [
+    "docs/governance/2026-10-17_bootstrap-and-game-design.md"
+  ],
+  "allowDesignRevision": true,
+  "allowRequirementRevision": false,
+  "roles": {
+    "项目管理": {
+      "card": "角色卡/项目管理/role-card.md",
+      "boundary": "角色卡/项目管理/boundary.md",
+      "writeFiles": [
+        "src/common/shared/event-bus.js",
+        "test/项目管理/event-bus.test.js",
+        "docs/architecture.md",
+        "docs/architecture/shared-components.md",
+        "docs/project-rules.md",
+        "角色卡/项目管理/feature-map.md",
+        "角色卡/项目管理/memo.md",
+        "角色卡/项目管理/changelog.md",
+        "角色卡/项目管理/functional-description.md",
+        "角色卡/项目管理/api-spec.md",
+        "角色卡/项目管理/docs/change/2026-10-17_change_initial-implementation.md",
+        "角色卡/项目管理/docs/design/2026-10-17_design_shared-event-bus.md"
+      ],
+      "operations": [
+        "implement",
+        "repair"
+      ],
+      "autoDispatch": true,
+      "checks": {
+        "shared-unit": {
+          "argv": [
+            "node",
+            "--test",
+            "test/项目管理/event-bus.test.js"
+          ],
+          "timeoutSeconds": 60
+        }
+      }
+    },
+    "美术": {
+      "card": "角色卡/美术/role-card.md",
+      "boundary": "角色卡/美术/boundary.md",
+      "writeFiles": [
+        "resource/asset-manifest.json",
+        "resource/ATTRIBUTIONS.md",
+        "resource/hdri/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
+        "resource/models/quaternius-rifle.glb",
+        "resource/models/quaternius-adventurer.glb",
+        "resource/models/quaternius-woman-casual.glb",
+        "resource/models/quaternius-woman-formal.glb",
+        "resource/models/quaternius-man-base.glb",
+        "resource/textures/ground/Ground054_1K-JPG_Color.jpg",
+        "resource/textures/ground/Ground054_1K-JPG_NormalGL.jpg",
+        "resource/textures/ground/Ground054_1K-JPG_Roughness.jpg",
+        "resource/textures/ground/Ground054_1K-JPG_AmbientOcclusion.jpg",
+        "resource/textures/concrete/Concrete034_1K-JPG_Color.jpg",
+        "resource/textures/concrete/Concrete034_1K-JPG_NormalGL.jpg",
+        "resource/textures/concrete/Concrete034_1K-JPG_Roughness.jpg",
+        "resource/textures/metal/Metal032_1K-JPG_Color.jpg",
+        "resource/textures/metal/Metal032_1K-JPG_NormalGL.jpg",
+        "resource/textures/metal/Metal032_1K-JPG_Roughness.jpg",
+        "resource/textures/metal/Metal032_1K-JPG_Metalness.jpg",
+        "resource/textures/wood/Wood066_1K-JPG_Color.jpg",
+        "resource/textures/wood/Wood066_1K-JPG_NormalGL.jpg",
+        "resource/textures/wood/Wood066_1K-JPG_Roughness.jpg",
+        "resource/textures/steel/CorrugatedSteel009_1K-JPG_Color.jpg",
+        "resource/textures/steel/CorrugatedSteel009_1K-JPG_NormalGL.jpg",
+        "resource/textures/steel/CorrugatedSteel009_1K-JPG_Roughness.jpg",
+        "resource/textures/steel/CorrugatedSteel009_1K-JPG_Metalness.jpg",
+        "resource/textures/steel/CorrugatedSteel009_1K-JPG_AmbientOcclusion.jpg",
+        "resource/textures/fabric/Fabric084_1K-JPG_Color.jpg",
+        "resource/textures/fabric/Fabric084_1K-JPG_NormalGL.jpg",
+        "resource/textures/fabric/Fabric084_1K-JPG_Roughness.jpg",
+        "resource/textures/fabric/Fabric084_1K-JPG_AmbientOcclusion.jpg",
+        "test/美术/asset-manifest.test.js",
+        "角色卡/美术/feature-map.md",
+        "角色卡/美术/memo.md",
+        "角色卡/美术/changelog.md",
+        "角色卡/美术/functional-description.md",
+        "角色卡/美术/api-spec.md",
+        "角色卡/美术/docs/design/2026-10-17_design_art-direction.md",
+        "角色卡/美术/docs/feature/art-assets.md",
+        "角色卡/美术/docs/change/2026-10-17_change_asset-intake.md"
+      ],
+      "operations": [
+        "implement",
+        "repair"
+      ],
+      "autoDispatch": true,
+      "checks": {
+        "asset-manifest": {
+          "argv": [
+            "node",
+            "--test",
+            "test/美术/asset-manifest.test.js"
+          ],
+          "timeoutSeconds": 60
+        }
+      }
+    },
+    "界面装配": {
+      "card": "角色卡/界面装配/role-card.md",
+      "boundary": "角色卡/界面装配/boundary.md",
+      "writeFiles": [
+        "index.html",
+        "src/style.css",
+        "src/main.js",
+        "src/interface/public/index.js",
+        "src/interface/impl/hud.js",
+        "src/interface/impl/input.js",
+        "src/interface/impl/settings.js",
+        "electron/main.js",
+        "vite.config.js",
+        "package.json",
+        "package-lock.json",
+        "scripts/smoke-electron.js",
+        "test/界面装配/settings.test.js",
+        "角色卡/界面装配/feature-map.md",
+        "角色卡/界面装配/memo.md",
+        "角色卡/界面装配/changelog.md",
+        "角色卡/界面装配/functional-description.md",
+        "角色卡/界面装配/api-spec.md",
+        "角色卡/界面装配/docs/feature/match-interface.md",
+        "角色卡/界面装配/docs/feature/desktop-shell.md",
+        "角色卡/界面装配/docs/change/2026-10-17_change_initial-implementation.md"
+      ],
+      "operations": [
+        "implement",
+        "repair",
+        "build"
+      ],
+      "autoDispatch": true,
+      "checks": {
+        "unit": {
+          "argv": [
+            "node",
+            "--test",
+            "test/界面装配/"
+          ],
+          "timeoutSeconds": 60
+        },
+        "build": {
+          "argv": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "timeoutSeconds": 180
+        }
+      }
+    },
+    "游戏管线": {
+      "card": "角色卡/游戏管线/role-card.md",
+      "boundary": "角色卡/游戏管线/boundary.md",
+      "writeFiles": [
+        "src/models/game-config.js",
+        "src/models/events.js",
+        "src/models/contracts.js",
+        "src/pipelines/public/game.js",
+        "src/pipelines/impl/game-state.js",
+        "src/pipelines/impl/game-pipeline.js",
+        "test/游戏管线/game-state.test.js",
+        "角色卡/游戏管线/feature-map.md",
+        "角色卡/游戏管线/memo.md",
+        "角色卡/游戏管线/changelog.md",
+        "角色卡/游戏管线/functional-description.md",
+        "角色卡/游戏管线/api-spec.md",
+        "角色卡/游戏管线/docs/feature/match-flow.md",
+        "角色卡/游戏管线/docs/change/2026-10-17_change_initial-implementation.md"
+      ],
+      "operations": [
+        "implement",
+        "repair"
+      ],
+      "autoDispatch": true,
+      "checks": {
+        "unit": {
+          "argv": [
+            "node",
+            "--test",
+            "test/游戏管线/game-state.test.js"
+          ],
+          "timeoutSeconds": 60
+        }
+      }
+    },
+    "战斗服务": {
+      "card": "角色卡/战斗服务/role-card.md",
+      "boundary": "角色卡/战斗服务/boundary.md",
+      "writeFiles": [
+        "src/services/abstract/combat.js",
+        "src/services/public/combat.js",
+        "src/services/impl/combat/player.js",
+        "src/services/impl/combat/weapon.js",
+        "src/services/impl/combat/view-model.js",
+        "src/services/impl/combat/collision.js",
+        "test/战斗服务/collision.test.js",
+        "test/战斗服务/weapon.test.js",
+        "test/战斗服务/view-model.test.js",
+        "角色卡/战斗服务/feature-map.md",
+        "角色卡/战斗服务/memo.md",
+        "角色卡/战斗服务/changelog.md",
+        "角色卡/战斗服务/functional-description.md",
+        "角色卡/战斗服务/api-spec.md",
+        "角色卡/战斗服务/docs/feature/player-combat.md",
+        "角色卡/战斗服务/docs/change/2026-10-17_change_initial-implementation.md"
+      ],
+      "operations": [
+        "implement",
+        "repair"
+      ],
+      "autoDispatch": true,
+      "checks": {
+        "unit": {
+          "argv": [
+            "node",
+            "--test",
+            "test/战斗服务/collision.test.js",
+            "test/战斗服务/weapon.test.js",
+            "test/战斗服务/view-model.test.js"
+          ],
+          "timeoutSeconds": 60
+        }
+      }
+    },
+    "敌方服务": {
+      "card": "角色卡/敌方服务/role-card.md",
+      "boundary": "角色卡/敌方服务/boundary.md",
+      "writeFiles": [
+        "src/services/abstract/enemies.js",
+        "src/services/public/enemies.js",
+        "src/services/impl/enemies/enemy-manager.js",
+        "src/services/impl/enemies/enemy.js",
+        "src/services/impl/enemies/human-visual.js",
+        "src/services/impl/enemies/projectile.js",
+        "src/services/impl/enemies/waves.js",
+        "src/services/impl/enemies/pickup.js",
+        "test/敌方服务/waves.test.js",
+        "test/敌方服务/human-visual.test.js",
+        "角色卡/敌方服务/feature-map.md",
+        "角色卡/敌方服务/memo.md",
+        "角色卡/敌方服务/changelog.md",
+        "角色卡/敌方服务/functional-description.md",
+        "角色卡/敌方服务/api-spec.md",
+        "角色卡/敌方服务/docs/feature/enemy-waves.md",
+        "角色卡/敌方服务/docs/change/2026-10-17_change_initial-implementation.md"
+      ],
+      "operations": [
+        "implement",
+        "repair"
+      ],
+      "autoDispatch": true,
+      "checks": {
+        "unit": {
+          "argv": [
+            "node",
+            "--test",
+            "test/敌方服务/waves.test.js",
+            "test/敌方服务/human-visual.test.js"
+          ],
+          "timeoutSeconds": 60
+        }
+      }
+    },
+    "环境引擎": {
+      "card": "角色卡/环境引擎/role-card.md",
+      "boundary": "角色卡/环境引擎/boundary.md",
+      "writeFiles": [
+        "src/services/abstract/environment.js",
+        "src/services/abstract/effects.js",
+        "src/services/abstract/audio.js",
+        "src/services/public/environment.js",
+        "src/services/public/effects.js",
+        "src/services/public/audio.js",
+        "src/services/impl/environment/arena.js",
+        "src/services/impl/environment/arena-layout.js",
+        "src/services/impl/environment/props.js",
+        "src/services/impl/environment/decals.js",
+        "src/services/impl/effects/effects.js",
+        "src/services/impl/audio/audio-service.js",
+        "src/providers/abstract/renderer.js",
+        "src/providers/abstract/assets.js",
+        "src/providers/abstract/audio-engine.js",
+        "src/providers/public/renderer.js",
+        "src/providers/public/assets.js",
+        "src/providers/public/three.js",
+        "src/providers/public/audio-engine.js",
+        "src/providers/impl/three-renderer.js",
+        "src/providers/impl/three-assets.js",
+        "src/providers/impl/post-processing.js",
+        "src/providers/impl/webaudio-engine.js",
+        "test/环境引擎/arena-layout.test.js",
+        "角色卡/环境引擎/feature-map.md",
+        "角色卡/环境引擎/memo.md",
+        "角色卡/环境引擎/changelog.md",
+        "角色卡/环境引擎/functional-description.md",
+        "角色卡/环境引擎/api-spec.md",
+        "角色卡/环境引擎/docs/feature/arena-and-feedback.md",
+        "角色卡/环境引擎/docs/change/2026-10-17_change_initial-implementation.md"
+      ],
+      "operations": [
+        "implement",
+        "repair"
+      ],
+      "autoDispatch": true,
+      "checks": {
+        "unit": {
+          "argv": [
+            "node",
+            "--test",
+            "test/环境引擎/arena-layout.test.js"
+          ],
+          "timeoutSeconds": 60
+        }
+      }
+    },
+    "独立测试": {
+      "card": "角色卡/独立测试/role-card.md",
+      "boundary": "角色卡/独立测试/boundary.md",
+      "writeFiles": [
+        "test/独立测试/integration/game-flow.test.js",
+        "test/独立测试/e2e/electron-smoke.test.js",
+        "角色卡/独立测试/feature-map.md",
+        "角色卡/独立测试/memo.md",
+        "角色卡/独立测试/changelog.md",
+        "角色卡/独立测试/docs/test-plan.md",
+        "角色卡/独立测试/docs/reports/2026-10-17_report_initial-verification.md"
+      ],
+      "operations": [
+        "test"
+      ],
+      "autoDispatch": true,
+      "checks": {
+        "integration": {
+          "argv": [
+            "node",
+            "--test",
+            "test/独立测试/integration/game-flow.test.js"
+          ],
+          "timeoutSeconds": 120
+        },
+        "e2e": {
+          "argv": [
+            "node",
+            "--test",
+            "test/独立测试/e2e/electron-smoke.test.js"
+          ],
+          "timeoutSeconds": 240
+        }
+      }
+    }
+  }
+}

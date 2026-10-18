@@ -1,0 +1,28 @@
+# 工作线索：界面装配
+
+- 2026-10-17：角色建立（ANS 引导）。`index.html` 原为 NEON STRIKE 骨架，已整体替换为 DUSTLINE。
+- 2026-10-17：v3 全量升级。新增设置持久化/面板、爆头与方向受击 HUD、人类敌人名称、assets/load/decals 装配、O4 getSettings/getPerformance。
+- 已完成：菜单/HUD/设置面板/暂停/结算、键鼠输入、指针锁定、ESC/失焦暂停、F11、O1 ADS 界面、O3 菜单可见、O4 只读钩子、Electron 壳、Vite、装配入口。
+- 关键契约：只通过 `src/pipelines/public/game.js` 驱动对局，通过共享事件总线接收 HUD 更新；界面不导入 Service/Provider/其他层 impl。
+- **设置存储**：键固定 `dustline.settings.v3`；字段/范围来自 Model；`settings.js` 的 `createSettings()` 可注入 storage，测试走内存实现；面板只调用 `game.applySettings/getSettings`。
+- **设置面板隔离**：`input.js` 的 `isBlocked` 回调让面板打开时输入不进入游戏；ESC 由 `onBlockedEscape` 关闭面板。从暂停打开设置时对局保持 paused。
+- **低画质**：Pipeline 调用渲染器 `setQuality('low')`；已实测 `getPerformance().quality==='low'` 且 `postProcessing===false`。
+- **爆头/方向**：`hud:hitmarker.headshot`、`hud:killfeed.headshot`、`hud:damage.direction`；方向约定 0 前、正值右，`damageDirectionDegrees()` 锁定换算。
+- **main 启动**：`assets` 传给敌方/战斗；`await enemies.load()` / `await combat.load()`，失败只记录；`arena.getDecals()` 存在时传给效果服务，否则警告。
+- **环境引擎依赖**：环境角色在本轮期间已落地 `arena.getDecals()`、效果 `blood/bulletHole/muzzleSmoke/shell/enemyShot`、音频 `setMasterVolume/headshot/shellDrop/enemyShot`、渲染器 `setQuality/getQuality`。main 已把贴片系统传给效果服务；实际画面与听感仍需独立测试/视觉验收。若服务侧继续变化，重新构建与冒烟。
+- **构建产物会随其他角色变化**：最后一次构建 68 modules、JS 1005.33 kB；报告里不要写死旧数值。
+- **战斗 viewport**：战斗服务创建时冻结 viewport。`src/main.js` 用 `createCombatRenderer(renderer, viewport)` 包装 `getWorldPosition`，始终按当前窗口中心取样；窗口缩放已验证。
+- **指针锁定跳变**：锁定后前两次 `mousemove` 被忽略，避免视角甩向天空；不要删除。
+- **ESC**：输入层显式 ESC 暂停兜底；设置面板打开时改为关闭面板。
+- **测试脚本**：`npm test` 使用 `node --test test/界面装配/`；`index.js` 加载 `hud-format.test.js` 与 `settings.test.js`；不要删除目录入口。
+- **冒烟**：`scripts/smoke-electron.js` 已包含 getSettings/getPerformance、设置面板、低画质关后处理、localStorage、恢复默认；修改面板 DOM id 后要同步更新。
+- **打包**：本轮按任务要求未运行 `npm run pack`/`dist`；PM 最终打包前需复跑构建、冒烟与打包后启动。`asar:false` 与 `electronDist` 原因见初始记录。
+- **武器可见性**：战斗服务 `setViewVisible(boolean)`；装配入口保留总线接线，菜单/结算隐藏、对局/暂停显示。
+- **待项目管理/美术**：正式 v3 视觉验收、真实截图签字；现有检查只是布局/流程验证。
+- **待项目管理更新（不在本角色写范围）**：`docs/architecture.md` 若仍写 NEON STRIKE/界面待实施，应更新为 DUSTLINE v3 状态。
+- **待独立测试**：真人完整两波、爆头与方向受击观感、安装/卸载、性能/内存、音频听感。
+- 常用命令：
+  - `node --test test/界面装配/settings.test.js test/界面装配/hud-format.test.js`
+  - `npm test`
+  - `npm run build`
+  - `node scripts/smoke-electron.js`

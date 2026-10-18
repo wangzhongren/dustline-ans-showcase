@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>DUSTLINE · 尘埃战线</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app" class="app-root">
+      <canvas id="game" class="game-canvas" aria-label="DUSTLINE 训练场画面"></canvas>
+      <div class="screen-vignette" aria-hidden="true"></div>
+      <div class="screen-grain" aria-hidden="true"></div>
+      <div id="damage-flash" class="damage-flash" aria-hidden="true"></div>
+      <div id="low-health" class="low-health-vignette" aria-hidden="true"></div>
+
+      <section id="hud" class="hud hidden" aria-label="战斗 HUD">
+        <div id="compass" class="compass">
+          <div class="compass-window">
+            <div id="compass-strip" class="compass-strip" aria-hidden="true"></div>
+          </div>
+          <div class="compass-center-mark" aria-hidden="true"></div>
+          <div id="compass-heading" class="compass-heading">000°</div>
+        </div>
+
+        <ul id="killfeed" class="killfeed" aria-live="polite" aria-label="击杀信息"></ul>
+
+        <div class="score-panel panel">
+          <div class="score-main">
+            <span class="stat-label">得分</span>
+            <span id="score" class="stat-value">0</span>
+          </div>
+          <div class="score-sub">
+            <span class="stat-line"><span>波次</span><strong id="wave">1</strong></span>
+            <span class="stat-line"><span>击杀</span><strong id="kills">0</strong></span>
+          </div>
+          <div id="mute-indicator" class="mute-indicator hidden">静音</div>
+        </div>
+
+        <div id="crosshair" class="crosshair" aria-hidden="true">
+          <span class="ch-line ch-top"></span>
+          <span class="ch-line ch-right"></span>
+          <span class="ch-line ch-bottom"></span>
+          <span class="ch-line ch-left"></span>
+          <span class="ch-dot"></span>
+        </div>
+        <div id="ads-indicator" class="ads-indicator hidden">ADS · 瞄准</div>
+        <div id="hitmarker" class="hitmarker" aria-hidden="true">
+          <i></i><i></i><i></i><i></i>
+        </div>
+        <div id="damage-direction" class="damage-direction" aria-hidden="true">
+          <span class="damage-chevron"></span>
+        </div>
+
+        <div id="hud-health" class="health-panel panel">
+          <div class="health-head">
+            <span class="panel-tag">生命体征</span>
+            <span class="health-number"><strong id="hp-value">100</strong><span class="health-max">/ <span id="hp-max">100</span></span></span>
+          </div>
+          <div class="health-track"><div id="hp-fill" class="health-fill"></div></div>
+        </div>
+
+        <div id="hud-ammo" class="ammo-panel panel">
+          <div class="weapon-name">AR-15 · 制式步枪</div>
+          <div class="ammo-line">
+            <span id="ammo" class="ammo-current">30</span>
+            <span class="ammo-separator">/</span>
+            <span id="ammo-max" class="ammo-reserve">∞</span>
+          </div>
+          <div id="reload-bar" class="reload-track"><div id="reload-fill" class="reload-fill"></div></div>
+          <div id="reload-label" class="reload-label hidden">换弹中</div>
+        </div>
+
+        <div id="wave-banner" class="wave-banner hidden" aria-live="polite">
+          <div class="banner-rule" aria-hidden="true"></div>
+          <div class="banner-text">
+            <div id="banner-title" class="banner-title">第 1 波</div>
+            <div id="banner-subtitle" class="banner-subtitle">敌人来袭</div>
+          </div>
+          <div class="banner-rule" aria-hidden="true"></div>
+        </div>
+
+        <div class="controls-hint">
+          <span>WASD 移动</span><span>Shift 冲刺</span><span>Space 跳跃</span><span>左键射击</span><span>右键瞄准</span><span>R 换弹</span><span>M 静音</span><span>F11 全屏</span>
+        </div>
+      </section>
+
+      <div id="loading" class="overlay loading-overlay">
+        <div class="loading-box panel">
+          <div class="eyebrow">DUSTLINE // 训练场装配</div>
+          <div class="loading-bar"><span></span></div>
+          <p id="loading-text" class="loading-text">正在装载场地、道具与人类士兵模型...</p>
+        </div>
+      </div>
+
+      <div id="menu" class="overlay menu-overlay">
+        <div class="menu-frame">
+          <header class="menu-header">
+            <div class="eyebrow">OPERATION DUSTLINE · 第 07 训练区</div>
+            <h1 class="game-title">DUSTLINE</h1>
+            <p class="game-subtitle">尘埃战线</p>
+            <p class="briefing">
+              阴云压境，人类士兵正在从训练场边缘推进。利用混凝土、集装箱、沙袋与
+              隔离墩掩体，在波次进攻中尽可能久地守住阵地。命中头部可造成双倍伤害。
+            </p>
+          </header>
+
+          <div class="menu-columns">
+            <section class="panel briefing-panel" aria-label="作战简报">
+              <div class="panel-heading">作战简报</div>
+              <p>
+                敌方单位为人类士兵。步枪兵保持距离点射；重机枪手缓慢逼近并打出三连发；
+                突击兵速度极快，会贴身近战。命中头部造成双倍伤害，击杀信息会标记“爆头”。
+              </p>
+              <div class="briefing-meta">
+                <span><b>区域</b> 07 训练场</span>
+                <span><b>天气</b> 阴 / 部分多云</span>
+                <span><b>任务</b> 生存并累计得分</span>
+              </div>
+            </section>
+
+            <section class="panel controls-panel" aria-label="操作说明">
+              <div class="panel-heading">操作</div>
+              <div class="controls-grid">
+                <div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>移动</span></div>
+                <div><kbd>Shift</kbd><span>冲刺</span></div>
+                <div><kbd>Space</kbd><span>跳跃</span></div>
+                <div><kbd>鼠标</kbd><span>观察</span></div>
+                <div><kbd>左键</kbd><span>射击</span></div>
+                <div><kbd>右键</kbd><span>瞄准</span></div>
+                <div><kbd>R</kbd><span>换弹</span></div>
+                <div><kbd>M</kbd><span>静音</span></div>
+                <div><kbd>ESC</kbd><span>暂停</span></div>
+                <div><kbd>F11</kbd><span>全屏</span></div>
+                <div><kbd>设置</kbd><span>灵敏度 / FOV / 画质</span></div>
+              </div>
+            </section>
+          </div>
+
+          <div class="menu-actions">
+            <button id="start-btn" class="btn primary" type="button" disabled>进入训练场</button>
+            <button id="menu-settings-btn" class="btn" type="button">设置</button>
+            <div class="fine">开始后锁定鼠标 · ESC 暂停 · F11 全屏</div>
+          </div>
+
+          <footer class="attribution">
+            素材授权：Poly Haven（HDRI）、ambientCG（PBR 贴图）、Quaternius / Poly Pizza（人类士兵模型、步枪），均为 CC0。
+          </footer>
+        </div>
+      </div>
+
+      <div id="pause" class="overlay pause-overlay hidden">
+        <div class="panel modal-panel">
+          <div class="eyebrow">行动暂停</div>
+          <h2>已暂停</h2>
+          <p class="modal-copy">指针已释放。检查装备后继续行动。</p>
+          <div class="btn-row">
+            <button id="resume-btn" class="btn primary" type="button">继续行动</button>
+            <button id="pause-settings-btn" class="btn" type="button">设置</button>
+            <button id="restart-pause-btn" class="btn" type="button">重新开始</button>
+          </div>
+          <div class="control-reminder">
+            WASD 移动 · Shift 冲刺 · Space 跳跃 · 左键射击 · 右键瞄准 · R 换弹 · M 静音 · F11 全屏
+          </div>
+        </div>
+      </div>
+
+      <div id="gameover" class="overlay gameover-overlay hidden">
+        <div class="panel modal-panel">
+          <div class="eyebrow danger">行动结束</div>
+          <h2>你已倒下</h2>
+          <p class="modal-copy">训练场记录已归档。重新进入可再次挑战。</p>
+          <div class="stats-grid">
+            <div class="stat-cell"><span>得分</span><strong id="go-score">0</strong></div>
+            <div class="stat-cell"><span>波次</span><strong id="go-wave">1</strong></div>
+            <div class="stat-cell"><span>击杀</span><strong id="go-kills">0</strong></div>
+            <div class="stat-cell"><span>存活</span><strong id="go-time">0:00</strong></div>
+          </div>
+          <button id="restart-btn" class="btn primary" type="button">再次出击</button>
+          <div class="fine">点击后重新锁定鼠标</div>
+        </div>
+      </div>
+
+      <div id="settings" class="overlay settings-overlay hidden" role="dialog" aria-modal="true" aria-label="设置">
+        <div class="panel settings-panel">
+          <header class="settings-head">
+            <div>
+              <div class="eyebrow">SYSTEM // 设置</div>
+              <h2>行动设置</h2>
+            </div>
+            <button id="settings-close" class="btn small" type="button">关闭</button>
+          </header>
+
+          <div class="settings-grid">
+            <div class="setting-row">
+              <label for="setting-mouse-sensitivity">鼠标灵敏度</label>
+              <input id="setting-mouse-sensitivity" type="range" min="0.25" max="3" step="0.05" value="1" />
+              <output id="setting-mouse-sensitivity-value" for="setting-mouse-sensitivity">1.00×</output>
+            </div>
+
+            <div class="setting-row">
+              <label for="setting-ads-sensitivity">ADS 灵敏度倍率</label>
+              <input id="setting-ads-sensitivity" type="range" min="0.4" max="1.5" step="0.05" value="0.8" />
+              <output id="setting-ads-sensitivity-value" for="setting-ads-sensitivity">0.80×</output>
+            </div>
+
+            <div class="setting-row">
+              <label for="setting-fov">视野 FOV</label>
+              <input id="setting-fov" type="range" min="65" max="95" step="1" value="75" />
+              <output id="setting-fov-value" for="setting-fov">75°</output>
+            </div>
+
+            <div class="setting-row">
+              <label for="setting-master-volume">主音量</label>
+              <input id="setting-master-volume" type="range" min="0" max="1" step="0.01" value="0.7" />
+              <output id="setting-master-volume-value" for="setting-master-volume">70%</output>
+            </div>
+
+            <div class="setting-row">
+              <label for="setting-quality">画面质量</label>
+              <select id="setting-quality">
+                <option value="high">高（后处理）</option>
+                <option value="low">低（关闭后处理）</option>
+              </select>
+              <output id="setting-quality-value" for="setting-quality">高</output>
+            </div>
+          </div>
+
+          <p class="settings-note">
+            更改立即生效并保存在本机。低画质会关闭 SSAO、Bloom 等后处理，
+            保留基础色调映射、阴影与可辨认的士兵轮廓。
+          </p>
+
+          <div class="settings-actions">
+            <button id="settings-reset" class="btn" type="button">恢复默认</button>
+            <span class="fine">设置保存在浏览器本地存储</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

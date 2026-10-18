@@ -1,0 +1,36 @@
+# 工作线索：战斗服务
+
+- 2026-10-17：角色建立（ANS 引导）。
+- 玩家起点为竞技场中心；视角使用 pointer lock 提供的鼠标增量，俯仰角需限幅。
+- 射击为命中扫描（hitscan）：从相机中心发出射线，由 Pipeline 注入的目标查询决定是否命中敌人。
+- 与敌人服务没有直接导入关系；通过 Model 契约和 Pipeline 注入协作。
+- 2026-10-17：完成首次实现（`createCombat`、移动/碰撞/生命/武器/第一人称视图）。单元测试 39 项通过；Electron 画面与真实联调未做。
+- 实现线索：
+  - 纯逻辑在 `impl/combat/{collision,weapon,player}.js`，公共入口只做组合与事件翻译。
+  - 一帧最多一发（delta 上限 0.05 小于 0.095 射击间隔）；大位移在 `moveCircle` 内细分，防隧穿。
+  - 核心暴击在 `applyDamage` 前乘算一次，敌方返回的 `critical` 只用于反馈。
+  - 渲染 Provider 没有尺寸读取方法；`createCombat` 接受可选 `viewport`，缺省 1600 × 900。若窗口尺寸不同需装配层传入，否则中心射线会偏。
+  - 玩家只在 y=0 落地，不支持站上箱子；竖直方向用眼高过滤低障碍。
+  - 后坐力回正速度 8 弧度/秒很快，连续射击时主要是一帧抬升；观感需 Electron 验证后决定是否调整 `game-config`（本角色不写 Model）。
+- 2026-10-17 后续：主菜单截图显示武器遮挡场景，新增 `setViewVisible(visible)`（默认可见，reset 恢复可见，非布尔值 TypeError），Pipeline 可在菜单状态调用 false；武器缩放 0.85，腰射位置 (0.27,-0.28,-0.58)，ADS (0,-0.095,-0.42)。测试 41 项通过；`package.json` 已为 ESM，直接用 `node --test`。菜单截图需在 Pipeline 接线后复验。
+- 2026-10-17 v3：
+  - 第一人称视图拆到 `impl/combat/view-model.js`。纯状态对象（呼吸/摆动/冲刺/ADS/后坐/换弹/弹壳/烟雾）在上半部分，Three.js 几何在下半部分；Node 测试不需要 WebGL。
+  - 材质分层常量 `VIEW_MODEL_MATERIALS`：机匣 `#3A3D3F` / metalness 0.72 / roughness 0.5；聚合物 `#232623` / 0.04 / 0.78；磨损条 `#6A6E70`。不要退回“黑色板砖”。
+  - 相机姿态现在带 `roll`、`shakeX`、`shakeY`、`fovPunch`；当前 `three-renderer.js` 会忽略 `roll`，等环境引擎按 v3 契约补充。
+  - `damagePlayer()` 按项目管理修正**不发 `hud:damage`**；Pipeline 统一发布带方向的版本。不要在本服务重新加回。
+  - 爆头只用 `userData.part === 'head'`，伤害倍率取 `GAME_CONFIG.enemies.headshotMultiplier`；`weapon.criticalMultiplier` 仅在敌人倍率缺失时兼容。
+  - `load()` 幂等；主装配需要给 `createCombat` 传 `assets` 并 `await combat.load()`，否则程序化材质。`src/main.js` 不归本角色。
+  - 本地验证：`node --test test/战斗服务/collision.test.js test/战斗服务/weapon.test.js test/战斗服务/view-model.test.js` → 62 pass；`npm run build` 成功（敌方服务有 AnimationMixer/cloneSkinned 导出警告，非本角色）。
+  - 下一步需要 Electron 实际截图调参：双手位置、枪身占比、后坐/滚转/FOV 冲击、换弹手势、抛壳与烟雾。
+- 2026-10-17 v3 实机复核：
+  - 运行时隐藏整个视图模型后，巨型暗色板块仍在，确认它是环境几何，不是武器/双手；对照证据在 `test/战斗服务/evidence/2026-10-17_view-model-visible.png` / `..._hidden.png`。环境引擎负责修复。
+  - 视图层缩放再乘 0.82（最终 0.697），腰射约占右下 27% 宽、40% 高。屏幕空间测试用 `PerspectiveCamera` 投影可见网格包围盒，断言不越过中心、ADS 红点居中、近裁剪面安全。
+  - 材质：`envMapIntensity` 金属 0.18–0.22、聚合物 0.03；贴图色调偏暖 `VIEW_MODEL_TEXTURE_TINTS`；聚合物 `#262420`；木材缩到握把两侧；枪托前移 0.04 避免 ADS 贴近近裁剪面。
+  - 最终证据：`test/战斗服务/evidence/2026-10-17_view-model-hip-final.png`、`..._ads-final.png`。自动化浏览器 pointer lock 失败，ADS 图是暂停后手动设置视图模型 ADS 状态并匹配 FOV 的取景检查；逻辑由屏幕空间测试覆盖。
+  - 最终材质：`Fabric084` 的颜色图本身是蓝色、`Wood066` 偏红，视图模型不再给织物/木材套颜色图，只用法线/粗糙度；手套 `#2B2E2A`、袖口 `#8A8268`、木材 `#3A3028`。护木/弹匣/握把/枪托保持聚合物 `#262420`。
+  - 最终验证：64 项测试通过；`npm run build` 成功（68 modules，无导入警告）。
+- 2026-10-17 ADS 黑镜修复：
+  - 原因：镜体是实心盒，镜片 `depthWrite: true`，红点被遮。
+  - 修复：`view-model-optic-frame` 四面薄壁开放隧道；镜片 `#B0AEA6`、opacity 0.12、depthWrite false、DoubleSide；红点 `#FF2A1F`、toneMapped false、depthWrite false，位于镜片中心靠相机一侧。`OPTIC_STRUCTURE` 导出尺寸供测试。
+  - 测试：65 项通过；`npm run build` 成功（68 modules）。截图：`test/战斗服务/evidence/ads-fix/ads-before.png`、`ads-after.png`、`hip-after.png`。
+  - 未验证：真实鼠标锁定对局中的人工 ADS 观感（自动化浏览器 pointer lock 失败，截图用暂停 ADS 状态 + 匹配 FOV）。
